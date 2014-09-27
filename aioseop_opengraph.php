@@ -623,6 +623,11 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'google+'	=> Array( 'name' => 'itemprop', 'value' => 'content' )
 			);
 			
+			// Encode thumbnail url
+			$thumbnail = preg_replace_callback('#://([^/]+)/([^?]+)#', function ($match) {
+				return '://' . $match[1] . '/' . join('/', array_map('rawurlencode', explode('/', $match[2])));
+			}, $thumbnail);
+			
 			foreach ( $meta as $t => $data )
 				foreach ( $data as $k => $v ) {
 					if ( empty( $$k ) ) $$k = '';
